@@ -4,11 +4,20 @@ def test(model, test_data, loss_function):
     # Test the model
     model.eval()
     with torch.no_grad():
-        for images, labels in test_data:
-            test_output, last_layer = model(images)
-            pred_y = torch.max(test_output, 1)[1].data.squeeze()
-            accuracy = (pred_y == labels).sum().item() / float(labels.size(0))
-            loss = loss_function(test_output, labels)
+        correct = 0
+        sum_loss = 0
+        total = 0
+        for X, y in test_data:
+            output, _ = model(X)
+            pred_y = torch.max(output, 1)[1].data.squeeze()
+
+            correct += (pred_y == y).sum().item()
+            sum_loss += loss_function(output, y)
+            total += y.size(0)
+
+        # calculating dataset accuracy and loss
+        accuracy = correct / total
+        loss = sum_loss / len(test_data)
 
     return loss, accuracy
     
