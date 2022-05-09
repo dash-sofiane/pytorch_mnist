@@ -2,11 +2,10 @@ import torch
 from torch.utils.data import DataLoader
 from torch import nn
 from torch import optim
+from pytorch_mnist.model.cnn import CNN
+from pytorch_mnist.utils.get_mnist import train_data, test_data
+from pytorch_mnist.process.fit import FitTestClass
 
-
-from pytorch_mnist.models.cnn import CNN
-from get_mnist import train_data, test_data
-from train import train
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -29,8 +28,9 @@ model_save_path = "./last_trained_model.pt"
 # cnn = cnn.to(device)
 # TODO: fix gpu utilization
 
-train(
-    model=cnn,
+fitter = FitTestClass(model=cnn, config={"some": "values?"})
+
+fitter.train(
     train_data=loaders["train"],
     validation_data=loaders["test"],
     num_epochs=num_epochs,
