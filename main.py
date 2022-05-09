@@ -9,13 +9,6 @@ from train import train
 # Device configuration
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-cnn = CNN()
-loss_func = nn.CrossEntropyLoss()   
-optimizer = optim.Adam(cnn.parameters(), lr = 0.01)   
-num_epochs = 10
-early_stopping_patience=2
-model_save_path='./last_trained_model.pt'
-
 # get the loaders
 loaders = {
     'train' : DataLoader(train_data, 
@@ -28,6 +21,14 @@ loaders = {
                         shuffle=True, 
                         num_workers=1),
 }
+
+# model settings
+cnn = CNN()
+loss_func = nn.CrossEntropyLoss()   
+optimizer = optim.Adam(cnn.parameters(), lr = 0.01)   
+num_epochs = 10
+early_stopping_patience=2
+model_save_path='./last_trained_model.pt'
 
 # send model to gpu
 # cnn = cnn.to(device)
