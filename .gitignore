@@ -1,1 +1,4 @@
-data/*
+data
+last_trained_model.pt
+__pycache__
+.vscode
