@@ -26,7 +26,7 @@ def train(
     for epoch in range(num_epochs):
         for i, (X, y) in enumerate(train_data):
 
-            output = model(X)[0]
+            output = model(X)
             loss = loss_function(output, y)
             
             # clear gradients for this training step   

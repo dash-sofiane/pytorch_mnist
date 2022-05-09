@@ -8,7 +8,7 @@ def test(model, test_data, loss_function):
         sum_loss = 0
         total = 0
         for X, y in test_data:
-            output, _ = model(X)
+            output = model(X)
             pred_y = torch.max(output, 1)[1].data.squeeze()
 
             correct += (pred_y == y).sum().item()
